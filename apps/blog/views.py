@@ -13,7 +13,6 @@ class CategoryListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CategoryFilter
 
-class CategoryRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):   
     serializer_class = CategorySerializers
     queryset = Category.objects.all()
 
