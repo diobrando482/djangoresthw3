@@ -30,3 +30,17 @@ class PublicationRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIVi
     serializer_class = PublicationSerializer
     queryset = Publication.objects.all()
     permission_classes = [IsOwnerOrReadOnly]
+
+class IsAuthorOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.author == request.user
+
+class PublicationViewSet(viewsets.ModelViewSet):
+    queryset = Publication.objects.all()
+    serializer_class = PublicationSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
