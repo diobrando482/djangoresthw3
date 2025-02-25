@@ -11,5 +11,5 @@ class CategorySerializers(serializers.ModelSerializer):
 class PublicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publication
-        fields = '__all__'
-        read_only_fields = ['id', 'user', 'created', 'updated']
+        fields = ['id', 'title', 'content', 'author', 'created_at', 'updated_at']
+        read_only_fields = ['author', 'created_at', 'updated_at']
