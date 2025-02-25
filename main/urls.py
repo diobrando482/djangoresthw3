@@ -4,7 +4,8 @@ from drf_yasg import openapi
 from django.contrib import admin
 from django.urls import path, include, re_path
 
-
+router = DefaultRouter()
+router.register(r'publications', PublicationViewSet)
 
 schema_view = get_schema_view(
    openapi.Info(
